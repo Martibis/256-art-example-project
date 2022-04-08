@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <!-- NOTE THAT THE INPUTDATA SCRIPT IS NOT INCL. IN THE RELEASE FILES -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <style type="text/css">
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(40, 40, 40);
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            padding: 0;
+            margin: auto;
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- LIBRARIES / PACKAGES -->
+    <script src="https://cdn.jsdelivr.net/npm/256art@1.1.0"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script> -->
+
+    <!-- ART SCRIPT MINIFIED (createArt.js in dev) (MAKE SURE THIS IS MINIMIZED AS MUCH AS POSSIBLE, AS THIS WILL BE STORED ON CHAIN, NO METADATA HERE) -->
+    <script>async function art(t,e){let n=document.createElement("canvas"),r=Math.min(window.innerWidth,window.innerHeight);n.width=r,n.height=1.35*r;let i=n.getContext("2d");document.body.appendChild(n);let o=new class{constructor(){this.useA=!1;let e=function(t){let e=parseInt(t.substr(0,8),16),n=parseInt(t.substr(8,8),16),r=parseInt(t.substr(16,8),16),i=parseInt(t.substr(24,8),16);return function(){e|=0,n|=0,r|=0,i|=0;let t=(e+n|0)+i|0;return i=i+1|0,e=n^n>>>9,n=r+(r<<3)|0,r=r<<21|r>>>11,r=r+t|0,(t>>>0)/4294967296}};this.prngA=new e(t.substr(2,32)),this.prngB=new e(t.substr(34,32));for(let t=0;t<1e6;t+=2)this.prngA(),this.prngB()}random_dec(){return this.useA=!this.useA,this.useA?this.prngA():this.prngB()}random_num(t,e){return t+(e-t)*this.random_dec()}random_int(t,e){return Math.floor(this.random_num(t,e+1))}random_bool(t){return this.random_dec()<t}random_choice(t){return t[this.random_int(0,t.length-1)]}},s=TwoFiveSix.getBlockColorsForId(e)[o.random_dec()*TwoFiveSix.getBlockColorsForId(e).length],h=n.width*o.random_dec(),d=n.height*o.random_dec(),a=n.width*o.random_dec(),u=n.height*o.random_dec(),l=.05*n.width;i.fillStyle="#fff",i.fillRect(0,0,n.width,n.height),i.strokeStyle=s,i.lineWidth=l,i.moveTo(h,d),i.lineTo(a,u),i.stroke(),i.rect(0,0,n.width,n.height),i.stroke()}art(inputData.hash,inputData.membershipId);</script>    
+</body>
+
+</html>
