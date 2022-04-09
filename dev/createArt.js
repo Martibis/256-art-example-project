@@ -63,12 +63,11 @@ function setup() {
 }
 
 function draw() {
-  //IF USING P5JS THIS ISN'T NEEDED
-  let ctx = canvas.getContext("2d");
-
   //IF YOUR ARTWORK DOESN'T USE A GENESIS PIECE AS PART OF ITS INPUT, YOU CAN REMOVE THE membershipId VARIABLE
   let membershipId = inputData.membershipId;
-  console.log(membershipId);
+
+  //IF USING P5JS THIS ISN'T NEEDED
+  let ctx = canvas.getContext("2d");
 
   //INITIATE THE RANDOM CLASS
   let R = new Random();
