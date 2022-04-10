@@ -59,7 +59,8 @@ function setup() {
   canvas.width = width;
   canvas.height = width * aspectRatio;
 
-  document.body.appendChild(canvas);
+  //THIS CAN BE COMMENTED IN THIS FILE, TO IMPROVE SPEED
+  //document.body.appendChild(canvas);
 }
 
 function draw() {
