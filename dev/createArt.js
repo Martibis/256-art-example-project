@@ -64,7 +64,7 @@ function setup() {
 
 function draw() {
   //IF YOUR ARTWORK DOESN'T USE A GENESIS PIECE AS PART OF ITS INPUT, YOU CAN REMOVE THE membershipId VARIABLE
-  let membershipId = inputData.membershipId;
+  //let membershipId = inputData.membershipId;
 
   //IF USING P5JS THIS ISN'T NEEDED
   let ctx = canvas.getContext("2d");
@@ -75,8 +75,13 @@ function draw() {
   //EVERYTHING BELOW HERE SHOULD BE THE CODE FOR YOUR ARTWORK
 
   //EXAMPLE GETTING DATA FROM GENESIS PIECE (ONLY IF YOU USE GENESIS PIECE AS INPUT)
-  let colors = TwoFiveSix.getBlockColorsForId(membershipId);
-  let color = colors[Math.floor(colors.length * R.random_dec())];
+  //let colors = TwoFiveSix.getBlockColorsForId(membershipId);
+  //let color = colors[Math.floor(colors.length * R.random_dec())];
+  let color =
+    "#" +
+    Math.floor(R.random_dec() * 16777215)
+      .toString(16)
+      .toString();
 
   //EXAMPLES USING THE RANDOM CLASS
   let startX = canvas.width * R.random_dec();
