@@ -9,6 +9,7 @@ During your development phase, you should only work in the dev folder.
 - createArt.js: this should be the starting point and where you create the script for your artwork.
 - createStaticImageAndMetadata.js: once your artwork is finished, you can start working in this file which should output a static image file of your artwork and a json file with the metadata for your artwork.
 - index.html: here you can set and experiment with different inputdata (e.g.: if you want to use a different hash to randomize your artwork), it's also where you should add your libraries (one max, two if using the 256ART library).
+- Working with p5js? Make sure to remove or update the code where “**P5JS**” is mentioned in a comment (the comment will clarify whether to remove or change the code and how).
 
 ## Release folder
 

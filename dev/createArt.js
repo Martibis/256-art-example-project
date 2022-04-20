@@ -56,9 +56,12 @@ function setup() {
   //MAKE SURE TO PROVIDE THE ASPECT RATIO
   let aspectRatio = 1.35;
   let width = Math.min(window.innerWidth, window.innerHeight);
+
+  //P5JS -> replace with createCanvas
   canvas.width = width;
   canvas.height = width * aspectRatio;
 
+  //P5JS -> remove
   document.body.appendChild(canvas);
 }
 
@@ -66,7 +69,7 @@ function draw() {
   //IF YOUR ARTWORK DOESN'T USE A GENESIS PIECE AS PART OF ITS INPUT, YOU CAN REMOVE THE membershipId VARIABLE
   //let membershipId = inputData.membershipId;
 
-  //IF USING P5JS THIS ISN'T NEEDED
+  //P5JS -> remove
   let ctx = canvas.getContext("2d");
 
   //INITIATE THE RANDOM CLASS
@@ -77,6 +80,7 @@ function draw() {
   //EXAMPLE GETTING DATA FROM GENESIS PIECE (ONLY IF YOU USE GENESIS PIECE AS INPUT)
   //let colors = TwoFiveSix.getBlockColorsForId(membershipId);
   //let color = colors[Math.floor(colors.length * R.random_dec())];
+
   let color =
     "#" +
     Math.floor(R.random_dec() * 16777215)
@@ -92,7 +96,7 @@ function draw() {
   //MAKE SURE ALL VARIABLES ARE DIMENSION AGNOSTIC, E.G.: LINEWIDTH BASED OF CANVAS WIDTH
   let lineWidth = canvas.width * 0.05;
 
-  //DRAW ARTWORK
+  //DRAW ARTWORK -> UPDATE THIS CODE WITH YOUR ART
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -106,7 +110,7 @@ function draw() {
   ctx.stroke();
 }
 
-//IF YOU USE P5JS YOU CAN REMOVE THE FOLLOWING
+//P5JS -> remove
 let canvas = document.createElement("canvas");
 setup();
 draw();
