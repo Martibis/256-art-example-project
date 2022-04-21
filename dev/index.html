@@ -2,19 +2,30 @@
 
 <head>
     <!-- INPUTDATA (INPUTDATA IS HERE ONLY HERE FOR TESTING PURPOSES, YOU CAN CHANGE THE INPUT OF THE VARIABLES HERE)-->
-    <script>let inputData = { "tokenId": 10, "membershipId": 8, "hash": "0x1346fb96aa3fc39855fd1e2979a20d27eda1ab4fcf839f3d3a02bec8c4e339be", "smartContract": "0x08be2ce26a7f1811bd794e3085a270f1e2da3c975a4248ea2ebb14a4fa75d1a9", rinkeby: true, fileExtension: "png" };</script>
+    <script>
+        //FOLLOWING IS FOR TESTING PURPOSES: you can add a hash in your url ?hash="yourhash" else it will generate a random hash 
+        let search = new URLSearchParams(window.location.search);
+        let genHash = (size) =>
+            [...Array(size)]
+                .map(() => Math.floor(Math.random() * 16).toString(16))
+                .join("");
+        let hash = search.get('hash') || "0x" + genHash(64);
+
+        let inputData = { "tokenId": 10, "membershipId": 8, "hash": hash, "smartContract": "0x08be2ce26a7f1811bd794e3085a270f1e2da3c975a4248ea2ebb14a4fa75d1a9", rinkeby: true, fileExtension: "png" };</script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <style type="text/css">
         * {
             padding: 0;
             margin: 0;
         }
+
         html,
         body {
             height: 100%;
             width: 100%;
             background-color: rgb(40, 40, 40);
         }
+
         canvas {
             max-width: 100%;
             max-height: 100%;
