@@ -88,14 +88,14 @@ function draw() {
     artist: "Tibout Shaik",
     description: "This is just a minimal line",
 
-    //IF YOUR ARTWORK IS ANIMATED, UNCOMMENT BELOW
+    //IF YOUR ARTWORK IS ANIMATED AND YOU WANT IT TO SHOW THE ANIMATED VERSION ON MARKETPLACES, UNCOMMENT BELOW
     //animation_url: baseUrl + 'html_files/' + tokenId.toString() + '.html',
 
-    //don't change below
+    //don't change below (you may want to add image and live_url in your description as well though)
     image: baseUrl + "max/" + tokenId.toString() + ".png",
     live_url: baseUrl + "html_files/" + tokenId.toString() + ".html",
     aspect_ratio: aspectRatio,
-    external_url: "https://256art.com/" + contractAddress + "/" + tokenId,
+    external_url: baseUrl + "html_files/" + tokenId.toString() + ".html",
     attributes: [],
   };
 
