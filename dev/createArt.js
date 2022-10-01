@@ -55,12 +55,18 @@ class Random {
 function setup() {
   //MAKE SURE TO PROVIDE THE ASPECT RATIO
   let aspectRatio = 1.35;
-  let width = Math.min(window.innerWidth, window.innerHeight);
+
+  let ih = window.innerHeight;
+  let iw = window.innerWidth;
 
   //P5JS -> replace with createCanvas
-  canvas.width = width;
-  canvas.height = width * aspectRatio;
-
+  if (ih / iw < aspectRatio) {
+    canvas.height = ih;
+    canvas.width = ih / aspectRatio;
+  } else {
+    canvas.width = iw;
+    canvas.height = iw * aspectRatio;
+  }
   //P5JS -> remove
   document.body.appendChild(canvas);
 }
