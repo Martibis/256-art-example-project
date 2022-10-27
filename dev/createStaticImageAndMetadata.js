@@ -56,6 +56,7 @@ function setup() {
   //MAKE SURE TO PROVIDE THE ASPECT RATIO
   let aspectRatio = 1.35;
 
+  //dp and multipluing with dp is not necessary for p5js
   let dp = window.devicePixelRatio;
 
   let ih = window.innerHeight * dp;
