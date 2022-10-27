@@ -56,8 +56,10 @@ function setup() {
   //MAKE SURE TO PROVIDE THE ASPECT RATIO
   let aspectRatio = 1.35;
 
-  let ih = window.innerHeight;
-  let iw = window.innerWidth;
+  let dp = window.devicePixelRatio;
+
+  let ih = window.innerHeight * dp;
+  let iw = window.innerWidth * dp;
 
   //P5JS -> replace with createCanvas
   if (ih / iw < aspectRatio) {
