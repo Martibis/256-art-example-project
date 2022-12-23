@@ -77,7 +77,7 @@ function setup() {
 function draw() {
   //YOU SHOULD ALWAYS START WITH THE FOLLOWING
   let contractAddress = inputData.smartContract;
-  let rinkeby = inputData.rinkeby;
+  let goerli = inputData.goerli;
   let fileExtension = inputData.fileExtension;
   let tokenId = inputData.tokenId;
 
@@ -87,7 +87,7 @@ function draw() {
   //DON'T CHANGE THE BASE URL
   let baseUrl =
     "https://256art.s3.eu-central-1.amazonaws.com/" +
-    (rinkeby ? "rinkeby" : "mainnet") +
+    (goerli ? "goerli" : "mainnet") +
     "/" +
     contractAddress +
     "/";
