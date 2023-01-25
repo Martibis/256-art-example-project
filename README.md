@@ -1,23 +1,30 @@
 ## Intro
 
-This is a 256ART example project. Which can be used when starting development on an artseries for the 256ART platform. There are two folders **dev** and **release** which will be explained below. Each created artwork should retrieve determnistic randomness from a hash send as input to your art script. Each artwork should be dimension agnostic.
+This is a 256ART example project. Which can be used when starting development on an art series for the 256ART platform. There are two folders **artwork** and **asset-generation** which will be explained below. Each created artwork should retrieve determnistic randomness from a hash send as input to your art script. Each artwork should be dimension agnostic.
 
-## Dev folder
+## Artwork folder
 
-During your development phase, you should only work in the dev folder.
+- artwork.js: this is the algorithm from which your art is created.
+- artwork.min.js: before uploading your algorithm, make sure to minify it. This is the algorithm that will go on-chain.
+- index.html: for testing purposes, we generate a random hash (or you can set a hash yourself using URL parameters), a random tokenId and a random membershipId each time you refresh the page.
+- Working with p5js? Make sure to remove or update the code where “**P5JS**” is mentioned in a comment (the comment will clarify whether to remove or change the code and how both in index.html and artwork.js).
 
-- createArt.js: this should be the starting point and where you create the script for your artwork.
-- createStaticImageAndMetadata.js: once your artwork is finished, you can start working in this file which should output a static image file of your artwork and a json file with the metadata for your artwork.
-- index.html: here you can set and experiment with different inputdata (e.g.: if you want to use a different hash to randomize your artwork), it's also where you should add your libraries (one max, two if using the 256ART library).
-- Working with p5js? Make sure to remove or update the code where “**P5JS**” is mentioned in a comment (the comment will clarify whether to remove or change the code and how).
+## Asset-generation folder
 
-## Release folder
+- asset-generation.js: this is the algorithm that will create a static image and a JSON file with the attributes for a piece.
+- asset-generation.min.js: before uploading your algorithm, make sure to minify it
+- index.html: for testing purposes, we generate a random hash (or you can set a hash yourself using URL parameters), a random tokenId and a random membershipId each time you refresh the page.
+- On each refresh the script should output a static image and a JSON file holding with the attributes of that piece.
+- Working with p5js? Make sure to remove or update the code where “**P5JS**” is mentioned in a comment (the comment will clarify whether to remove or change the code and how both in index.html and artwork.js).
 
-Once you're ready to launch your series (or test it on a testnet), you should create two files:
+## How does the rendering work?
 
-- artwork.html: a single html page, with the script from the createArt.js folder in the dev folder minified and added inside a script tag.
-- staticimageandmetadata.html: a single html page, with the script from the createStaticImageAndMetadata.js folder in the dev folder minified and added inside a script tag.
+When a user mints, we derive the tokenId, membershipId and hash from the Ethereum blockchain and in our back-end script we create two HTML files with a script tag with the right inputData. One with your artwork algorithm and one with your asset-generation algorithm. We than run the asset-generation script and store all the files (live html, images, JSON with metadata) on our server for easy access to collectors.
 
-When a user mints, we derive the tokenId, membershipId and hash from the Ethereum blockchain and in our back-end script we add a script tag with the right inputData to your release files. When run artwork.html shows the artwork and staticimageandmetadata.html returns the files we need for marketplaces (static image and json metadata). The artwork, static image(s) and json are than stored and easily retrievable.
+## Is the art also on chain?
 
-We store the art script (and other relevant data, e.g.: libraries used) on chain, meaning collectors can always recreate their art from the generated hash which is linked (on chain) to the ERC721 token in their wallet.
+Yes, we store the artwork script (and other relevant data, e.g.: what library was used, what license, etc.) on chain.
+
+## How can a collector get the art from chain?
+
+We created a getArtFromChain function which builds an HTML page with your artscript and the relevant inputData (hash, tokenId, membershipId), on-chain. This HTML page is than base64 encoded and send back as a response. As browsers can interpret base64 HTML you can just copy paste the result in your address bar and voila, no need for any form of external hosting to get your art from chain. Some more info can be found here: https://256art.notion.site/Access-on-chain-art-048e8f8aa1664f9a814cd31930e50381

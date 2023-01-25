@@ -1,0 +1,123 @@
+<html>
+
+<head>
+    <!-- INPUTDATA (INPUTDATA IS HERE ONLY HERE FOR TESTING PURPOSES, YOU CAN CHANGE THE INPUT OF THE VARIABLES HERE)-->
+    <script>
+        //FOLLOWING IS FOR TESTING PURPOSES: you can add a hash in your url ?hash="yourhash" else it will generate a random hash 
+        let search = new URLSearchParams(window.location.search);
+        let genHash = (size) =>
+            [...Array(size)]
+                .map(() => Math.floor(Math.random() * 16).toString(16))
+                .join("");
+
+        //SET HASH TO THE HASH USED FOR MINTING ON LIVE (FOR TESTING IT'S RANDOM)
+        let hash = search.get('hash') || "0x" + genHash(64);
+
+        //SET TOKEN ID TO TOKENID USED FOR MINTING ON LIVE (FOR TESTING IT'S RANDOM)
+        let tokenId = Math.floor(Math.random() * 256);
+
+        //SET MEMBERSHIP ID TO MEMBERSHIP USED FOR MINTING ON LIVE (FOR TESTING IT'S RANDOM)
+        let membershipId = Math.ceil(Math.random() * 4096);
+
+        //FILE EXTENSION FOR STATIC IMAGE
+        let fileExtension = "png"
+
+
+        let inputData = { "tokenId": tokenId, "membershipId": membershipId, "hash": hash, };
+
+
+        let metaData = {
+            attributes: [],
+        };
+
+
+        //DOWNLOAD FUNCTION TO WHICH THE ARTIST PASSES THE CANVAS AND CALLS IT WHEN EVERYTHING IS RENDERED (will download both JSON metadata and still image)
+        function download_files(c) {
+            let m = metaData;
+            let files = [];
+            files.push({
+                filename:
+                    tokenId.toString() +
+                    "." +
+                    (fileExtension === "jpeg" || fileExtension === "jpg"
+                        ? "jpg"
+                        : fileExtension),
+                download: c.toDataURL(
+                    "image/" +
+                    (fileExtension === "jpeg" || fileExtension === "jpg"
+                        ? "jpeg"
+                        : fileExtension)
+                ),
+            });
+
+            let jsonString = JSON.stringify(m);
+            let blob = new Blob([jsonString], { type: "application/json" });
+            let url = URL.createObjectURL(blob);
+            files.push({
+                filename: tokenId.toString() + ".json",
+                download: url,
+            });
+            function download_next(i) {
+                if (i >= files.length) {
+                    return;
+                }
+                var a = document.createElement("a");
+                a.href = files[i].download;
+                a.target = "_parent";
+                if ("download" in a) {
+                    a.download = files[i].filename;
+                }
+                (document.body || document.documentElement).appendChild(a);
+                if (a.click) {
+                    a.click();
+                } else {
+                    $(a).click();
+                }
+                a.parentNode.removeChild(a);
+                setTimeout(function () {
+                    download_next(i + 1);
+                }, 500);
+            }
+            download_next(0);
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: rgb(40, 40, 40);
+            /* MAYBE ALLOW THIS TO BE SET FROM PROJECT FORM TOO? */
+        }
+
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+            margin: auto;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- LIBRARIES / PACKAGES -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script> -->
+
+    <!-- STATIC IMAGE AND METADATA ARTIST SCRIPT WOULD BE HERE-->
+    <script defer src="asset-generation.js"></script>
+</body>
+
+</html>

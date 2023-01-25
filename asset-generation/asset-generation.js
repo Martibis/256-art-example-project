@@ -75,42 +75,6 @@ function setup() {
 }
 
 function draw() {
-  //YOU SHOULD ALWAYS START WITH THE FOLLOWING
-  let contractAddress = inputData.smartContract;
-  let goerli = inputData.goerli;
-  let fileExtension = inputData.fileExtension;
-  let tokenId = inputData.tokenId;
-
-  //MAKE SURE TO SET ASPECT RATIO
-  let aspectRatio = 1.35;
-
-  //DON'T CHANGE THE BASE URL
-  let baseUrl =
-    "https://256art.s3.eu-central-1.amazonaws.com/" +
-    (goerli ? "goerli" : "mainnet") +
-    "/" +
-    contractAddress +
-    "/";
-
-  let metaData = {
-    name: "Minimal line #" + tokenId,
-    artist: "Tibout Shaik",
-    description: "This is just a minimal line",
-
-    //IF YOUR ARTWORK IS ANIMATED AND YOU WANT IT TO SHOW THE ANIMATED VERSION ON MARKETPLACES, UNCOMMENT BELOW
-    //animation_url: baseUrl + 'html_files/' + tokenId.toString() + '.html',
-
-    //don't change below (you may want to add image and live_url in your description as well though)
-    image: baseUrl + "max/" + tokenId.toString() + ".png",
-    live_url: baseUrl + "html_files/" + tokenId.toString() + ".html",
-    aspect_ratio: aspectRatio,
-    external_url: baseUrl + "html_files/" + tokenId.toString() + ".html",
-    attributes: [],
-  };
-
-  //IF YOUR ARTWORK DOESN'T USE A GENESIS PIECE AS PART OF ITS INPUT, YOU CAN REMOVE THE membershipId VARIABLE
-  //let membershipId = inputData.membershipId;
-
   //P5JS -> remove
   let ctx = canvas.getContext("2d");
 
@@ -118,10 +82,6 @@ function draw() {
   let R = new Random();
 
   //EVERYTHING BELOW HERE SHOULD BE THE CODE FOR YOUR ARTWORK
-
-  //EXAMPLE GETTING DATA FROM GENESIS PIECE (ONLY IF YOU USE GENESIS PIECE AS INPUT)
-  //let colors = TwoFiveSix.getBlockColorsForId(membershipId);
-  //let color = colors[Math.floor(colors.length * R.random_dec())];
   let color =
     "#" +
     Math.floor(R.random_dec() * 16777215)
@@ -156,57 +116,8 @@ function draw() {
     value: color,
   });
 
-  //WE RECOMMEND USING THE BELOW CODE TO GENERATE THE FINAL STATIC IMAGE AND JSON METADATA FILES
-  let filesToDownload = [];
-  filesToDownload.push({
-    filename:
-      tokenId.toString() +
-      "." +
-      (fileExtension === "jpeg" || fileExtension === "jpg"
-        ? "jpg"
-        : fileExtension),
-    download: canvas.toDataURL(
-      "image/" +
-        (fileExtension === "jpeg" || fileExtension === "jpg"
-          ? "jpeg"
-          : fileExtension)
-    ),
-  });
-
-  let jsonString = JSON.stringify(metaData);
-  let blob = new Blob([jsonString], { type: "application/json" });
-  let url = URL.createObjectURL(blob);
-  filesToDownload.push({
-    filename: tokenId.toString() + ".json",
-    download: url,
-  });
-
-  download_files(filesToDownload);
-}
-
-function download_files(files) {
-  function download_next(i) {
-    if (i >= files.length) {
-      return;
-    }
-    var a = document.createElement("a");
-    a.href = files[i].download;
-    a.target = "_parent";
-    if ("download" in a) {
-      a.download = files[i].filename;
-    }
-    (document.body || document.documentElement).appendChild(a);
-    if (a.click) {
-      a.click();
-    } else {
-      $(a).click();
-    }
-    a.parentNode.removeChild(a);
-    setTimeout(function () {
-      download_next(i + 1);
-    }, 500);
-  }
-  download_next(0);
+  //WHEN YOUR ARTWORK HAS LOADED AND ALL YOUR TRAITS HAVE BEEN ADDED CALL DOWNLOAD_FILES WITH YOUR CANVAS AS ARGUMENT
+  download_files(canvas);
 }
 
 //P5JS -> remove
